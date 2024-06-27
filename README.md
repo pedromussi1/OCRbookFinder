@@ -32,13 +32,17 @@
 
 <p>Download files, install Tesseract and Google Books into Python Interpreter. Run main.py file.</p>
 
+<hr>
+
 <h3>Book Page</h3>
 
 <p align="center">
-  <kbd><img src="https://i.imgur.com/GCZqyTU.jpeg" alt="BookPage"></kbd>
+  <kbd><img src="https://i.imgur.com/GCZqyTU.jpeg" alt="BookPage" width="900"></kbd>
 </p>
 
 <p>The first step is to take in the book page the program will be analyzing. The program will identify all the text in the image and try to find what book it is from by using Google Books API.</p>
+
+<hr>
 
 <h3>Transcribing text in image</h3>
 
@@ -47,6 +51,8 @@
 </p>
 
 <p>The next step is transcribing the image to text and printing it to the console using OCR. We can see from the image above that the program does that correctly. The last part of the program will be to find what book the page is from.</p>
+
+<hr>
 
 <h3>Identifying what Book the text is from</h3>
 
