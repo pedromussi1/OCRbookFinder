@@ -2,19 +2,19 @@
 <h1 align="center">OCR_Translator</h1>
 
 <p align="center">
-  <a href="https://www.youtube.com/watch?v=h8sp7vFeV7c"><img src="https://i.imgur.com/TCAQEac.gif" alt="YouTube Demonstration" width="800"></a>
+  <a href="https://www.youtube.com/watch?v=h8sp7vFeV7c"><img src="https://i.imgur.com/gZxakIi.png" alt="YouTube Demonstration" width="800"></a>
 </p>
 
 <h2>Description</h2>
 
-<p>The goal of this project was to develop a program that used AI with OCR (Optical Character Recognition) to analyze images taken in by the program. It takes an image from file path in the program, looks for any text, and translates it using Azure AI Translator.</p>
+<p>The goal of this project was to develop a program taht used AI with OCR (Optical Character Recognition) to analyze images taken in by the program. It takes an image from file path in the program, looks for any text taht in this case will be a page from a book, and tries to find what book that page is from using the Google Books API.</p>
 
 <h2>Languages and Utilities Used</h2>
 
 <ul>
   <li><b>Python</b></li>
   <li><b>Tesseract</b></li>
-  <li><b>Azure AI Translator</b></li>
+  <li><b>Google Books API</b></li>
 </ul>
 
 <h2>Environments Used</h2>
@@ -25,12 +25,12 @@
 </ul>
 
 <h2>
-<a href="https://github.com/pedromussi1/OCRtranslator/blob/main/READCODE.md">Code Breakdown Here!</a>
+<a href="https://github.com/pedromussi1/OCRbookFinder/blob/main/READCODE.md">Code Breakdown Here!</a>
 </h2>
 
 <h2>Project Walk-through</h2>
 
-<p>Download files, install Tesseract and Translate into Python Interpreter. Run MC_ocr_translation.py file.</p>
+<p>Download files, install Tesseract and Google Books into Python Interpreter. Run main.py file.</p>
 
 <h3>Book Page</h3>
 
