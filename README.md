@@ -35,24 +35,24 @@
 <h3>Book Page</h3>
 
 <p align="center">
-  <kbd><img src="https://i.imgur.com/jDDXD9P.jpeg" alt="BookPage"></kbd>
+  <kbd><img src="https://i.imgur.com/GCZqyTU.jpeg" alt="BookPage"></kbd>
 </p>
 
-<p>The first step is to take in the book page the program will be analyzing and translating. In my case, I have selected the introduction of the book 'Art of War' by Sun Tzu. The program my identify all the text in the image and translate it.</p>
+<p>The first step is to take in the book page the program will be analyzing. The program will identify all the text in the image and try to find what book it is from by using Google Books API.</p>
 
 <h3>Transcribing text in image</h3>
 
 <p align="center">
-  <kbd><img src="https://i.imgur.com/8htNEXy.png" alt="TranscribingImage"></kbd>
+  <kbd><img src="https://i.imgur.com/8Ews4QR.png" alt="TranscribingImage"></kbd>
 </p>
 
-<p>The next step is transcribing the image to text and printing it to the console using OCR. We can see from the image above that the program does that correctly. Now what needs to be done is translate it to a language of choice.</p>
+<p>The next step is transcribing the image to text and printing it to the console using OCR. We can see from the image above that the program does that correctly. The last part of the program will be to find what book the page is from.</p>
 
-<h3>Translating Text</h3>
+<h3>Identifying what Book the text is from</h3>
 
 <p align="center">
-  <kbd><img src="https://i.imgur.com/U1XvLjI.png" alt="TranslatingText"></kbd>
+  <kbd><img src="https://i.imgur.com/8Ews4QR.png" alt="TranslatingText"></kbd>
 </p>
 
-<p>The last step in the program is translating the text that has been transcribed by using the Azure AI Translator. We can see above the translated text. For this example I opted to translate to Brazilian Portuguese.</p>
+<p>The last step in the program is using the Google Books APi to find what book the page being analyzed is from. The API compares the text we have provided to their library of book titles, trying to find a match. You can see in the image above that the best match the program has found is Frank Herbert's "Dune", which is the correct answer.</p>
 
