@@ -2,114 +2,106 @@
 
 <p>The purpose of this program is to identify text from an image and find the book that contains this text using the Google Books API. The program combines Optical Character Recognition (OCR) techniques with the Google Books API to achieve this functionality.</p>
 
-<h2>Importing Libraries and Setting Up Tesseract</h2>
+<h2>Text Extraction from Image</h2>
 
-<p>
-The necessary libraries are imported at the beginning, and the path to the Tesseract executable is set:
-</p>
+<p>The extract_text function handles the OCR process using the Tesseract OCR engine. The process involves:</p>
+
+<p>Reading the Image: The image is read using OpenCV.</p>
+
+<p>Grayscale Conversion: The image is converted to grayscale to improve OCR accuracy.</p>
+
+<p>Text Extraction: Tesseract OCR is used to extract text from the grayscale image.</p>
 
 ```py
 import cv2
 import pytesseract
-from translate import Translator
 
-pytesseract.pytesseract.tesseract_cmd = r'C:\\Program Files\\Tesseract-OCR\\tesseract.exe'
+# Specify the path to the Tesseract executable
+pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 
-```
-
-<h2>Text Detection Function</h2>
-
-<p>The detect_text function loads an image, converts it to grayscale, and uses Tesseract to perform OCR on the image:</p>
-
-<p>The input is the path to the image file and the output is the detected text as a string.</p>
-
-```py
-def detect_text(image_path):
+def extract_text(image_path):
+    # Load the image
     image = cv2.imread(image_path)
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+    # Perform OCR using Tesseract
     custom_config = r'--oem 3 --psm 6'
     text = pytesseract.image_to_string(gray, config=custom_config)
+
     return text.strip()
 
 ```
 
-<h2>Text Preprocessing Function</h2>
+<h2>Book Identification using Google Books API</h2>
 
-<p>The preprocess_text function handles hyphenated words that may be split across lines, ensuring they are properly joined:</p>
+<p>The get_best_match function is responsible for identifying the book that best matches the extracted text. The process involves:</p>
 
-<p>The input is the detected text as a string and the output is the processed text with hyphenated words joined.</p>
+<p>Sending a Request to Google Books API: The extracted text is used as a query to search for books.</p>
 
-```py
-def preprocess_text(text):
-    lines = text.split('\n')
-    processed_lines = []
-    skip_next = False
-    for i in range(len(lines)):
-        if skip_next:
-            skip_next = False
-            continue
-        if lines[i].endswith('-') and i < len(lines) - 1:
-            processed_lines.append(lines[i][:-1] + lines[i + 1])
-            skip_next = True
-        else:
-            processed_lines.append(lines[i])
-    return '\n'.join(processed_lines)
+<p>Processing the Response: The response is parsed to find the book with the highest relevance.</p>
 
-
-```
-
-<h2>Text Translation Function</h2>
-
-<p>The input is the processed text and target language code and the output is the translated text.</p>
+<p>Returning the Best Match: The title and authors of the best matching book are returned.</p>
 
 ```py
-def translate_text(text, target_lang='en'):
-    translator = Translator(to_lang=target_lang)
-    lines = text.split('\n')
-    translated_lines = []
-    for line in lines:
-        chunk_size = 500
-        chunks = [line[i:i + chunk_size] for i in range(0, len(line), chunk_size)]
-        translated_chunks = []
-        for chunk in chunks:
-            translated_chunks.append(translator.translate(chunk))
-        translated_line = ''.join(translated_chunks)
-        translated_lines.append(translated_line)
-    return '\n'.join(translated_lines)
+import requests
 
+def search_book(text):
+    url = 'https://www.googleapis.com/books/v1/volumes'
+    params = {
+        'q': text,
+        'maxResults': 10,
+    }
+    response = requests.get(url, params=params)
+    if response.status_code == 200:
+        data = response.json()
+        return data.get('items', [])
+    else:
+        print(f"Error: {response.status_code}")
+        return []
+
+def get_best_match(extracted_text):
+    books = search_book(extracted_text)
+    if not books:
+        return "No matches found."
+
+    # Find the best match based on the highest relevance
+    best_match = max(books, key=lambda x: x.get('relevance', 0))
+
+    volume_info = best_match.get('volumeInfo', {})
+    title = volume_info.get('title', 'No title')
+    authors = volume_info.get('authors', ['Unknown author'])
+    return f"{title}, Authors: {', '.join(authors)}"
 
 ```
 
 <h2>Main Function</h2>
 
-<p>The input is the path to the image file and target language code, and the output is the translated text printed to the console.</p>
+<p>The main function integrates both components. It takes an image path as input, extracts text from the image, and finds the best matching book. The extracted text and the best match are printed to the console.</p>
 
 ```py
 
-def main(image_path, target_lang='en'):
-    text = detect_text(image_path)
-    print(f"Detected Text: {text}")
-    preprocessed_text = preprocess_text(text)
-    print(f"Preprocessed Text: {preprocessed_text}")
-    translated_text = translate_text(preprocessed_text, target_lang)
-    print(f"Translated Text: {translated_text}")
+def main(image_path):
+    # Extract text from the image
+    extracted_text = extract_text(image_path)
+    print(f"Extracted Text: \n\n{extracted_text}\n")
+
+    # Get the best matching book using the Google Books API
+    best_match = get_best_match(extracted_text)
+    print(f"Best Match: {best_match}")
 
 if __name__ == "__main__":
-    image_path = r"D:\\Computer Vision\\OCR_Images\\image.jpg"
-    target_lang = 'pt-br'
-    main(image_path, target_lang)
-
+    # Example usage:
+    image_path = r"D:\Computer Vision\OCR_Images\IMG.jpg"
+    main(image_path)
 
 ```
 
-<h2>Example Usage</h2>
+<h2>Conclusion</h2>
 
-<p>The example usage provided in the code runs the main function with a specified image path and target language (pt-br for Brazilian Portuguese).</p>
+<p>This program effectively combines OCR and web API technologies to identify the book corresponding to text extracted from an image. It leverages Tesseract OCR for text extraction and the Google Books API for book identification. This approach can be useful for various applications such as digitizing and cataloging printed materials.</p>
 
 <div style="display: flex; justify-content: center; align-items: center;">
-  <img src="https://i.imgur.com/jDDXD9P.jpeg" alt="BookPage" style="width: 300px; height: auto; margin: 20px;">
-  <img src="https://i.imgur.com/8htNEXy.png" alt="TranscribingImage" style="width: 300px; height: auto; margin: 20px;">
-  <img src="https://i.imgur.com/U1XvLjI.png" alt="TranslatingText" style="width: 300px; height: auto; margin: 20px;">
+  <img src="https://i.imgur.com/GCZqyTU.jpeg" alt="BookPage" style="width: 300px; height: auto; margin: 20px;">
+  <img src="https://i.imgur.com/8Ews4QR.png" alt="TranscribingImage" style="width: 300px; height: auto; margin: 20px;">
+  <img src="https://i.imgur.com/gZxakIi.png" alt="TranslatingText" style="width: 300px; height: auto; margin: 20px;">
 
-<p>This program demonstrates a practical application of OCR and translation technologies, converting text in images to different languages. It is useful for various applications, including document translation, assisting with language learning, and more.</p>
-</div>
