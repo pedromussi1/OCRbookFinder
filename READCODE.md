@@ -101,7 +101,7 @@ if __name__ == "__main__":
 <p>This program effectively combines OCR and web API technologies to identify the book corresponding to text extracted from an image. It leverages Tesseract OCR for text extraction and the Google Books API for book identification. This approach can be useful for various applications such as digitizing and cataloging printed materials.</p>
 
 <div style="display: flex; justify-content: center; align-items: center;">
-  <img src="https://i.imgur.com/GCZqyTU.jpeg" alt="BookPage" style="width: 300px; height: auto; margin: 20px;">
-  <img src="https://i.imgur.com/8Ews4QR.png" alt="TranscribingImage" style="width: 300px; height: auto; margin: 20px;">
-  <img src="https://i.imgur.com/gZxakIi.png" alt="TranslatingText" style="width: 300px; height: auto; margin: 20px;">
+  <img src="https://i.imgur.com/GCZqyTU.jpeg" alt="BookPage" style="width: auto; height: 290px; margin: 20px;">
+  <img src="https://i.imgur.com/8Ews4QR.png" alt="TranscribingImage" style="width: auto; height: 290px; margin: 20px;">
+  <img src="https://i.imgur.com/gZxakIi.png" alt="TranslatingText" style="width: auto; height: 290px; margin: 20px;">
 
