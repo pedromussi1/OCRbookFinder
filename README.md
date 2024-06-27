@@ -57,7 +57,7 @@
 <h3>Identifying what Book the text is from</h3>
 
 <p align="center">
-  <kbd><img src="https://i.imgur.com/8Ews4QR.png" alt="TranslatingText"></kbd>
+  <kbd><img src="https://i.imgur.com/jDpXSXE.png" alt="TranslatingText"></kbd>
 </p>
 
 <p>The last step in the program is using the Google Books APi to find what book the page being analyzed is from. The API compares the text we have provided to their library of book titles, trying to find a match. You can see in the image above that the best match the program has found is Frank Herbert's "Dune", which is the correct answer.</p>
