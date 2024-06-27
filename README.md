@@ -1,5 +1,5 @@
 
-<h1 align="center">OCR_Translator</h1>
+<h1 align="center">OCR_BookFinder</h1>
 
 <p align="center">
   <a href="https://www.youtube.com/watch?v=h8sp7vFeV7c"><img src="https://i.imgur.com/gZxakIi.png" alt="YouTube Demonstration" width="800"></a>
